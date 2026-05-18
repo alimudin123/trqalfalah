@@ -1,0 +1,119 @@
+    /* Container & Box Styles */
+    .content-box, .form-box {
+        background: #fff;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    }
+
+    .form-box {
+        padding: 35px; /* Sedikit lebih lebar untuk form */
+    }
+
+    /* Layout & Header */
+    .top-action {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    /* Form Elements */
+    .form-label {
+        font-weight: 600;
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        padding: 12px;
+    }
+
+    textarea.form-control {
+        min-height: 180px;
+    }
+
+    /* Table & Image Styles */
+    .table thead {
+        background: #f3f4f6;
+    }
+
+    .berita-img {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 12px;
+    }
+
+    .preview-img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 15px;
+        margin-top: 10px;
+    }
+
+    /* Button Base & Actions */
+    .btn-add, .btn-submit {
+        background: #16a34a;
+        color: #fff;
+        padding: 12px 22px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.3s;
+        border: none;
+        display: inline-block;
+    }
+
+    .btn-submit {
+        padding: 12px 25px;
+        cursor: pointer;
+    }
+
+    .btn-add:hover, .btn-submit:hover {
+        background: #15803d;
+        color: #fff;
+    }
+
+    .btn-back {
+        background: #e5e7eb;
+        color: #111827;
+        padding: 12px 25px;
+        border-radius: 12px;
+        text-decoration: none;
+        margin-right: 10px;
+        display: inline-block;
+        transition: 0.3s;
+    }
+
+    .btn-back:hover {
+        background: #d1d5db;
+    }
+
+    /* Action Buttons (Table) */
+    .btn-action {
+        width: 40px;
+        height: 40px;
+        border: none;
+        border-radius: 10px;
+        margin-right: 5px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3s;
+    }
+
+    .btn-edit {
+        background: #dcfce7;
+        color: #15803d;
+    }
+
+    .btn-delete {
+        background: #fee2e2;
+        color: #dc2626;
+    }
+
+    .btn-edit:hover { opacity: 0.8; }
+    .btn-delete:hover { opacity: 0.8; }
