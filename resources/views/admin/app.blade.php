@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,16 +14,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
-
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:'Poppins', sans-serif;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
-        body{
-            background:#f5f7fb;
+        body {
+            background: #f5f7fb;
         }
 
         /*
@@ -31,54 +31,54 @@
         |--------------------------------------------------------------------------
         */
 
-        .sidebar{
-            width:280px;
-            height:100vh;
-            background:#fff;
-            position:fixed;
-            left:0;
-            top:0;
-            border-right:1px solid #e5e7eb;
-            display:flex;
-            flex-direction:column;
-            justify-content:space-between;
-            padding:20px;
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            background: #fff;
+            position: fixed;
+            left: 0;
+            top: 0;
+            border-right: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
         }
 
-        .logo{
-            display:flex;
-            align-items:center;
-            gap:15px;
-            margin-bottom:40px;
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 40px;
         }
 
-        .logo img{
-            width:60px;
+        .logo img {
+            width: 60px;
         }
 
-        .logo h5{
-            font-size:18px;
-            font-weight:600;
-            margin:0;
+        .logo h5 {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0;
         }
 
-        .menu a{
-            text-decoration:none;
-            color:#374151;
-            display:flex;
-            align-items:center;
-            gap:15px;
-            padding:15px 18px;
-            border-radius:12px;
-            margin-bottom:15px;
-            transition:0.3s;
-            font-size:16px;
+        .menu a {
+            text-decoration: none;
+            color: #374151;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 18px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            transition: 0.3s;
+            font-size: 16px;
         }
 
         .menu a:hover,
-        .menu a.active{
-            background:#e7f7ef;
-            color:#0f9d58;
+        .menu a.active {
+            background: #e7f7ef;
+            color: #0f9d58;
         }
 
         /*
@@ -87,33 +87,67 @@
         |--------------------------------------------------------------------------
         */
 
-        .main{
-            margin-left:280px;
-            padding:30px;
+        .main {
+            margin-left: 280px;
+            padding: 30px;
         }
 
-        .topbar{
-            display:flex;
-            justify-content:space-between;
-            align-items:center;
-            margin-bottom:30px;
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
         }
 
-        .profile{
-            display:flex;
-            align-items:center;
-            gap:10px;
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
-        .profile-circle{
-            width:45px;
-            height:45px;
-            background:#d1d5db;
-            border-radius:50%;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            font-weight:bold;
+        .profile-circle {
+            width: 45px;
+            height: 45px;
+            background: #d1d5db;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .logout-form {
+            margin: 0;
+        }
+
+        .logout-button {
+            width: 100%;
+            border: none;
+            background: transparent;
+            text-decoration: none;
+            color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            transition: 0.25s ease;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .logout-button i {
+            width: 22px;
+            font-size: 17px;
+            color: var(--primary);
+        }
+
+        .logout-button:hover {
+            background: #ffedd5;
+            color: var(--primary-dark);
+            transform: translateX(4px);
         }
 
         /*
@@ -122,17 +156,17 @@
         |--------------------------------------------------------------------------
         */
 
-        footer{
-            text-align:center;
-            margin-top:40px;
-            color:#6b7280;
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #6b7280;
         }
-
     </style>
 
     @stack('style')
 
 </head>
+
 <body>
 
     <!-- Sidebar -->
@@ -170,11 +204,6 @@
                     Program Pembelajaran
                 </a>
 
-                <a href="/admin/galeri" class="{{ request()->is('admin/galeri') ? 'active' : '' }}">
-                    <i class="fa-solid fa-image"></i>
-                    Galeri
-                </a>
-
                 <a href="/admin/tentang-kami" class="{{ request()->is('admin/tentang-kami') ? 'active' : '' }}">
                     <i class="fa-solid fa-circle-info"></i>
                     Tentang Kami
@@ -184,15 +213,16 @@
 
         </div>
 
-        <!-- Logout -->
         <div class="menu">
+    <form action="{{ route('logout') }}" method="POST" class="logout-form">
+        @csrf
 
-            <a href="/logout">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                Logout
-            </a>
-
-        </div>
+        <button type="submit" class="logout-button">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </button>
+    </form>
+</div>
 
     </div>
 
@@ -244,4 +274,5 @@
     @stack('script')
 
 </body>
+
 </html>

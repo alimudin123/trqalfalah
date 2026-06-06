@@ -1,273 +1,165 @@
-@extends('layouts.app1')
-
-@section('title', 'Detail Program')
-
-@section('page-title', 'Detail Program')
-
-@section('content')
-
-<div class="card border-0 shadow-sm rounded-4">
-
-    <div class="card-body p-4">
-
-        <div class="row g-4">
-
-            <div class="col-lg-5">
-
-                @if($program->gambar)
-
-                    <img 
-                        src="{{ asset('storage/' . $program->gambar) }}"
-                        alt="{{ $program->nama_program }}"
-                        class="img-fluid rounded-4 w-100"
-                        style="height:450px; object-fit:cover;"
-                    >
-
-                @else
-
-                    <img 
-                        src="https://via.placeholder.com/500x300"
-                        alt="Program"
-                        class="img-fluid rounded-4 w-100"
-                        style="height:450px; object-fit:cover;"
-                    >
-
-                @endif
-
-            </div>
-
-
-
-
-
-            <div class="col-lg-7">
-
-                <div class="d-flex justify-content-between align-items-start mb-4">
-
-                    <div>
-
-                        <h2 class="fw-bold mb-2">
-                            {{ $program->nama_program }}
-                        </h2>
-
-                        <p class="text-muted mb-0">
-                            Program Pembelajaran Rumah Tahfidz Qur'an Al-Falah
-                        </p>
-
-                    </div>
-
-
-
-
-
-                    @if($program->status == 'aktif')
-
-                        <span class="badge bg-success px-3 py-2 rounded-pill">
-                            Aktif
-                        </span>
-
-                    @else
-
-                        <span class="badge bg-danger px-3 py-2 rounded-pill">
-                            Nonaktif
-                        </span>
-
-                    @endif
-
-                </div>
-
-
-
-
-
-                <div class="row g-3 mb-4">
-
-                    <div class="col-md-6">
-
-                        <div class="border rounded-4 p-3 h-100">
-
-                            <div class="d-flex align-items-center gap-3">
-
-                                <div class="bg-success-subtle text-success rounded-3 d-flex justify-content-center align-items-center"
-                                    style="width:50px; height:50px;">
-
-                                    <i class="fa-solid fa-clock"></i>
-
-                                </div>
-
-                                <div>
-
-                                    <small class="text-muted">
-                                        Durasi
-                                    </small>
-
-                                    <h6 class="mb-0 fw-semibold">
-                                        {{ $program->durasi }}
-                                    </h6>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-
-
-
-                    <div class="col-md-6">
-
-                        <div class="border rounded-4 p-3 h-100">
-
-                            <div class="d-flex align-items-center gap-3">
-
-                                <div class="bg-success-subtle text-success rounded-3 d-flex justify-content-center align-items-center"
-                                    style="width:50px; height:50px;">
-
-                                    <i class="fa-solid fa-calendar-days"></i>
-
-                                </div>
-
-                                <div>
-
-                                    <small class="text-muted">
-                                        Jadwal
-                                    </small>
-
-                                    <h6 class="mb-0 fw-semibold">
-                                        {{ $program->jadwal }}
-                                    </h6>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-
-
-
-                    <div class="col-md-6">
-
-                        <div class="border rounded-4 p-3 h-100">
-
-                            <div class="d-flex align-items-center gap-3">
-
-                                <div class="bg-success-subtle text-success rounded-3 d-flex justify-content-center align-items-center"
-                                    style="width:50px; height:50px;">
-
-                                    <i class="fa-solid fa-book-quran"></i>
-
-                                </div>
-
-                                <div>
-
-                                    <small class="text-muted">
-                                        Target Hafalan
-                                    </small>
-
-                                    <h6 class="mb-0 fw-semibold">
-                                        {{ $program->target_hafalan }}
-                                    </h6>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-
-
-
-                    <div class="col-md-6">
-
-                        <div class="border rounded-4 p-3 h-100">
-
-                            <div class="d-flex align-items-center gap-3">
-
-                                <div class="bg-success-subtle text-success rounded-3 d-flex justify-content-center align-items-center"
-                                    style="width:50px; height:50px;">
-
-                                    <i class="fa-solid fa-users"></i>
-
-                                </div>
-
-                                <div>
-
-                                    <small class="text-muted">
-                                        Jumlah Santri
-                                    </small>
-
-                                    <h6 class="mb-0 fw-semibold">
-                                        {{ $program->jumlah_santri }} Santri
-                                    </h6>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-
-
-
-                <div class="mb-4">
-
-                    <h5 class="fw-bold mb-3">
-                        Deskripsi Program
-                    </h5>
-
-                    <p class="text-muted lh-lg">
-                        {{ $program->deskripsi }}
-                    </p>
-
-                </div>
-
-
-
-
-
-                <div class="d-flex gap-3">
-
-                    <a 
-                        href="{{ route('program.index') }}"
-                        class="btn btn-light border rounded-3 px-4 py-2"
-                    >
-                        Kembali
-                    </a>
-
-
-
-
-
-                    <a 
-                        href="{{ route('program.edit', $program->id) }}"
-                        class="btn btn-success rounded-3 px-4 py-2"
-                    >
-                        Edit Program
-                    </a>
-
-                </div>
-
-            </div>
-
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $program->nama_program }}</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #fffaf0;
+            color: #1f1f1f;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 18px;
+            box-shadow: 0 10px 30px rgba(18, 55, 42, 0.12);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: #12372a;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .program-image {
+            width: 100%;
+            max-height: 430px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            background: #f7efe1;
+        }
+
+        h1 {
+            color: #12372a;
+            font-size: 36px;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .program-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 9px 16px;
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .badge-green {
+            background: #d8eadf;
+            color: #12372a;
+        }
+
+        .badge-red {
+            background: #f8d7da;
+            color: #842029;
+        }
+
+        .badge-gold {
+            background: #fff1d6;
+            color: #9a6418;
+        }
+
+        .section-title {
+            font-size: 20px;
+            color: #12372a;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .description {
+            font-size: 17px;
+            line-height: 1.9;
+            color: #333;
+            text-align: justify;
+            white-space: pre-line;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 30px 16px;
+                padding: 22px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            .description {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <a href="{{ url()->previous() }}" class="back-link">
+            ← Kembali
+        </a>
+
+        @if(!empty($program->gambar))
+            <img
+                src="{{ asset('storage/' . $program->gambar) }}"
+                alt="{{ $program->nama_program }}"
+                class="program-image">
+        @endif
+
+        <h1>{{ $program->nama_program }}</h1>
+
+        <div class="program-meta">
+            @if(!empty($program->durasi))
+                <span class="badge badge-gold">
+                    Durasi: {{ $program->durasi }}
+                </span>
+            @endif
+
+            @if(!empty($program->jumlah_santri))
+                <span class="badge badge-green">
+                    {{ $program->jumlah_santri }} Santri
+                </span>
+            @endif
+
+            @if(isset($program->status))
+                <span class="badge {{ $program->status == 'aktif' ? 'badge-green' : 'badge-red' }}">
+                    {{ $program->status == 'aktif' ? 'Aktif' : 'Nonaktif' }}
+                </span>
+            @endif
+        </div>
+
+        <div class="section-title">
+            Deskripsi Program
+        </div>
+
+        <div class="description">
+            {{ $program->deskripsi }}
         </div>
 
     </div>
 
-</div>
+</body>
 
-@endsection
+</html>

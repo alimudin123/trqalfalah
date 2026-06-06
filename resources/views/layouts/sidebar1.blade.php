@@ -49,12 +49,14 @@
 
     <!-- Logout -->
     <div class="menu">
+        <form action="{{ route('logout') }}" method="POST" class="logout-form">
+            @csrf
 
-        <a href="/logout">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            Logout
-        </a>
-
+            <button type="submit" class="logout-button">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Logout</span>
+            </button>
+        </form>
     </div>
 
 </div>

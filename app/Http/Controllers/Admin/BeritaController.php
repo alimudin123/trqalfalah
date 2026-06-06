@@ -41,6 +41,13 @@ class BeritaController extends Controller
             ->with('success', 'Berita berhasil ditambahkan');
     }
 
+    public function show($id)
+    {
+        $berita = Berita::findOrFail($id);
+
+        return view('admin.berita.show', compact('berita'));
+    }
+
     public function edit($id)
     {
         $berita = Berita::findOrFail($id);
