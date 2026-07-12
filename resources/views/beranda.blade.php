@@ -212,93 +212,81 @@
 |--------------------------------------------------------------------------
 */
 
-    /* HERO / BERANDA */
-    section#beranda.hero {
-      margin-top: 88px;
-      min-height: calc(100vh - 88px);
-      background:
-        linear-gradient(120deg, rgba(25, 35, 18, 0.96), rgba(48, 62, 33, 0.92)),
-        radial-gradient(circle at 85% 25%, rgba(201, 144, 46, 0.22), transparent 32%),
-        linear-gradient(135deg, #192312, #303e21, #4f5f36) !important;
-      position: relative;
-      overflow: hidden;
-      display: block;
-      padding: 0 6%;
-    }
+section#beranda.hero {
+  margin-top: 88px;
+  min-height: calc(100vh - 88px);
+  background:
+    linear-gradient(120deg, rgba(25, 35, 18, 0.96), rgba(48, 62, 33, 0.92)),
+    radial-gradient(circle at 85% 25%, rgba(201, 144, 46, 0.22), transparent 32%),
+    linear-gradient(135deg, #192312, #303e21, #4f5f36) !important;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 90px 6%;
+}
 
-    /* Judul besar */
-    section#beranda.hero::before {
-      content: "Rumah Tahfidz Qur’an Al-Falah";
-      width: min(650px, 90%);
-      color: #fff4d8;
-      font-family: 'Amiri', serif;
-      font-size: clamp(48px, 6vw, 78px);
-      font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: 1px;
-      position: absolute;
-      left: 6%;
-      top: 135px;
-      z-index: 2;
-      text-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-    }
+.hero-content {
+  width: min(720px, 100%);
+  position: relative;
+  z-index: 2;
+}
 
-    /* Deskripsi */
-    section#beranda.hero::after {
-      content: "Membentuk generasi Qur’ani yang berakhlak mulia, cinta Al-Qur’an, dan semangat dalam menuntut ilmu.";
-      width: min(600px, 88%);
-      color: #f7ecd1;
-      font-size: 17px;
-      line-height: 1.75;
-      position: absolute;
-      left: 6%;
-      top: 385px;
-      z-index: 2;
-      text-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
-    }
+.hero-content h1 {
+  color: #fff4d8;
+  font-family: 'Amiri', serif;
+  font-size: clamp(52px, 6vw, 82px);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 1px;
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
 
-    /* Tombol */
-    .hero-actions {
-      position: absolute;
-      left: 6%;
-      top: 505px;
-      display: flex;
-      gap: 14px;
-      z-index: 3;
-    }
+.hero-content p {
+  max-width: 620px;
+  margin-top: 24px;
+  color: #f7ecd1;
+  font-size: 17px;
+  line-height: 1.75;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.45);
+}
 
-    .hero-actions a {
-      min-width: 170px;
-      height: 48px;
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.2px;
-      transition: 0.25s ease;
-    }
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 34px;
+}
 
-    /* Tombol Daftar Sekarang */
-    .hero-actions a:first-child {
-      background: #c9902e;
-      color: #ffffff;
-      box-shadow: 0 12px 28px rgba(201, 144, 46, 0.35);
-    }
+.hero-actions a {
+  min-width: 190px;
+  height: 52px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  transition: 0.25s ease;
+}
 
-    /* Tombol Jelajahi Program */
-    .hero-actions a:last-child {
-      background: #fff4d8;
-      color: #202816;
-      border: 1px solid #fff4d8;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
-    }
+.hero-actions a:first-child {
+  background: #c9902e;
+  color: #ffffff;
+  box-shadow: 0 12px 28px rgba(201, 144, 46, 0.35);
+}
 
-    .hero-actions a:hover {
-      transform: translateY(-3px);
-      filter: brightness(1.06);
-    }
+.hero-actions a:last-child {
+  background: #fff4d8;
+  color: #202816;
+  border: 1px solid #fff4d8;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+}
+
+.hero-actions a:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.06);
+}
 
     /*
     |--------------------------------------------------------------------------
@@ -938,367 +926,572 @@
     |--------------------------------------------------------------------------
     */
 
-    footer {
-      background: var(--primary-dark);
+    .site-footer {
+      background:
+        linear-gradient(135deg, rgba(11, 36, 28, 0.98), rgba(18, 55, 42, 0.98));
       color: #fff;
-      text-align: center;
-      padding: 28px 20px;
+      border-top: 6px solid var(--secondary);
       margin-top: 0;
+    }
+
+    .footer-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 62px 6%;
+      display: grid;
+      grid-template-columns: 1.35fr 0.8fr 0.95fr 1.2fr;
+      gap: 38px;
+      text-align: left;
+    }
+
+    .footer-col h3 {
+      font-family: 'Amiri', serif;
+      font-size: 34px;
+      line-height: 1.15;
+      color: #fff4d8;
+      margin-bottom: 16px;
+    }
+
+    .footer-col h4 {
+      font-size: 19px;
+      font-weight: 800;
+      color: #fff4d8;
+      margin-bottom: 18px;
+    }
+
+    .footer-col p {
+      color: #eadfca;
       font-size: 14px;
-      border-top: 5px solid var(--secondary);
+      line-height: 1.8;
+      margin-bottom: 12px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .footer-col li {
+      margin-bottom: 12px;
+    }
+
+    .footer-col a {
+      color: #eadfca;
+      font-size: 14px;
+      line-height: 1.6;
+      transition: 0.25s ease;
+    }
+
+    .footer-col a:hover {
+      color: var(--secondary);
+      padding-left: 6px;
+    }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      color: #eadfca;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .footer-contact-item span {
+      flex-shrink: 0;
+      color: var(--secondary);
+      font-size: 18px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .footer-social a {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 0;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .footer-social a:hover {
+      background: var(--secondary);
+      color: #fff;
+      padding-left: 0;
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 22px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      color: #fff4d8;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    #beranda,
+    #tentang,
+    #visi-misi,
+    #program,
+    #fasilitas,
+    #pengajar,
+    #berita,
+    #kontak {
+      scroll-margin-top: 110px;
     }
 
     /*
-    |--------------------------------------------------------------------------
-    | RESPONSIVE
-    |--------------------------------------------------------------------------
-    */
-
-    @media (max-width: 1100px) {
-      .navbar {
-        padding: 0 24px;
-      }
-
-      .nav-menu {
-        gap: 22px;
-        font-size: 15px;
-      }
-
-      .auth-buttons a {
-        min-width: 110px;
-      }
-
-      .program-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .card-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .navbar {
-        height: auto;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        padding: 22px;
-      }
-
-      .brand,
-      .nav-menu,
-      .auth-buttons {
-        width: 100%;
-        justify-content: center;
-        flex-wrap: wrap;
-      }
-
-      .nav-spacer {
-        display: none;
-      }
-
-      .nav-menu {
-        gap: 16px;
-      }
-
-      .nav-menu>a,
-      .nav-item>a {
-        padding: 8px 0;
-      }
-
-      .nav-menu>a::after,
-      .nav-item>a::after {
-        bottom: 0;
-      }
-
-      .dropdown {
-        top: 32px;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-
-      .hero {
-        margin-top: 0;
-        min-height: 620px;
-        padding: 80px 7%;
-        align-items: flex-start;
-      }
-
-      .hero::before {
-        font-size: 43px;
-      }
-
-      .hero::after {
-        top: 245px;
-        left: 7%;
-        font-size: 16px;
-        width: 86%;
-      }
-
-      .hero-actions {
-        top: 420px;
-        left: 7%;
-        right: 7%;
-        bottom: auto;
-        flex-direction: column;
-        gap: 12px;
-      }
-
-      .hero-actions a {
-        width: 100%;
-        min-width: 0;
-        height: 46px;
-        font-size: 14px;
-      }
-
-      section {
-        padding: 80px 6%;
-      }
-
-      .about-section {
-        padding-top: 80px;
-      }
-
-      .about-grid,
-      .visi-grid,
-      .program-grid,
-      .card-grid,
-      .contact-box {
-        grid-template-columns: 1fr;
-      }
-
-      .section-header {
-        padding: 34px 24px;
-        margin-bottom: 45px;
-      }
-
-      .section-header h2 {
-        font-size: 38px;
-      }
-
-      .visi-card {
-        min-height: auto;
-        padding: 38px 28px;
-      }
-
-      .visi-card h3 {
-        font-size: 40px;
-        margin-bottom: 28px;
-      }
-
-      .visi-card .visi-text {
-        font-size: 22px;
-      }
-
-      .visi-card .misi-text {
-        font-size: 16px;
-      }
-
-      .teacher-table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-      }
-
-      .teacher-table th,
-      .teacher-table td {
-        font-size: 14px;
-        padding: 15px;
-      }
-
-      .contact-box {
-        padding: 32px 24px;
-      }
-
-      .contact-info h3 {
-        font-size: 38px;
-      }
-
-      #program {
-        padding-top: 90px;
-      }
-
-      .program-grid {
-        grid-template-columns: 1fr;
-        gap: 24px;
-      }
-
-      .program-card {
-        min-height: auto;
-        padding: 28px 24px;
-      }
-
-      .program-top {
-        gap: 16px;
-      }
-
-      .program-icon {
-        width: 72px;
-        height: 72px;
-        min-width: 72px;
-        font-size: 30px;
-        border-radius: 20px;
-      }
-
-      .program-card h3 {
-        font-size: 24px;
-      }
-
-      .program-card p {
-        font-size: 15px;
-      }
-
-      .program-status,
-      .program-time {
-        min-height: 34px;
-        padding: 7px 14px;
-        font-size: 13px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .logo-box {
-        width: 70px;
-        height: 54px;
-      }
-
-      .brand-text {
-        font-size: 13px;
-      }
-
-      .auth-buttons {
-        flex-direction: column;
-      }
-
-      .auth-buttons a {
-        width: 100%;
-      }
-
-      .hero::before {
-        font-size: 36px;
-      }
-
-      .hero::after {
-        top: 230px;
-      }
-
-      .image-placeholder {
-        height: 300px;
-      }
-
-      .media-card .image-placeholder {
-        height: 190px;
-      }
-
-      .hero-actions {
-        top: 390px;
-      }
-
-      .program-card {
-        padding: 24px 20px;
-      }
-
-      .program-top {
-        flex-direction: column;
-      }
-
-      .program-badges {
-        width: 100%;
-      }
-
-      .program-time {
-        width: 100%;
-      }
-
-      /*
-    |--------------------------------------------------------------------------
-    | IG IKON LINK
-    |--------------------------------------------------------------------------
-    */
-
-      .social-links a.instagram-icon {
-        width: 46px;
-        height: 46px;
-        background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-        color: #fff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: 0.25s ease;
-      }
-
-      .social-links a.instagram-icon:hover {
-        transform: translateY(-3px);
-        filter: brightness(1.08);
-      }
-
-      .social-links a.instagram-icon svg {
-        width: 24px;
-        height: 24px;
-      }
-
-      /*
-    |--------------------------------------------------------------------------
-    | IG IKON LINK
-    |--------------------------------------------------------------------------
-    */
-      /*
 |--------------------------------------------------------------------------
-| WHATSAPP IKON LINK
-|--------------------------------------------------------------------------
-*/
-      /*
-|--------------------------------------------------------------------------
-| WHATSAPP IKON LINK
+| SOCIAL ICON
 |--------------------------------------------------------------------------
 */
 
-      .contact-icon.whatsapp-contact-icon {
-        background: #25D366 !important;
-        color: #fff !important;
-      }
+.social-links a.instagram-icon {
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+  color: #fff;
+}
 
-      .contact-icon.whatsapp-contact-icon svg {
-        width: 24px;
-        height: 24px;
-      }
+.social-links a.instagram-icon:hover {
+  transform: translateY(-3px);
+  filter: brightness(1.08);
+}
 
-      .social-links a.whatsapp-icon {
-        width: 46px;
-        height: 46px;
-        background: #25D366 !important;
-        color: #fff !important;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: 0.25s ease;
-      }
+.social-links a.instagram-icon svg {
+  width: 24px;
+  height: 24px;
+}
 
-      .social-links a.whatsapp-icon:hover {
-        background: #1ebe5d !important;
-        transform: translateY(-3px);
-        filter: none;
-      }
+.contact-icon.whatsapp-contact-icon,
+.social-links a.whatsapp-icon {
+  background: #25D366 !important;
+  color: #fff !important;
+}
 
-      .social-links a.whatsapp-icon svg {
-        width: 25px;
-        height: 25px;
-      }
+.social-links a.whatsapp-icon:hover {
+  background: #1ebe5d !important;
+  transform: translateY(-3px);
+  filter: none;
+}
 
-      .program-link {
-        display: block;
-        color: inherit;
-        text-decoration: none;
-      }
+.social-links a.whatsapp-icon svg,
+.contact-icon.whatsapp-contact-icon svg {
+  width: 24px;
+  height: 24px;
+}
 
-      .program-link:hover {
-        color: inherit;
-      }
-    }
+/*
+|--------------------------------------------------------------------------
+| RESPONSIVE
+|--------------------------------------------------------------------------
+*/
+
+@media (max-width: 1200px) {
+  .navbar {
+    grid-template-columns: 250px 1fr 250px;
+    padding: 0 28px;
+  }
+
+  .nav-spacer {
+    width: 250px;
+  }
+
+  .nav-menu {
+    gap: 28px;
+    font-size: 16px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar {
+    grid-template-columns: 210px 1fr 0;
+    padding: 0 22px;
+  }
+
+  .nav-spacer {
+    display: none;
+  }
+
+  .brand-text {
+    font-size: 13px;
+  }
+
+  .nav-menu {
+    justify-content: flex-end;
+    gap: 20px;
+    font-size: 15px;
+  }
+
+  .about-grid,
+  .visi-grid,
+  .contact-box {
+    grid-template-columns: 1fr;
+  }
+
+  .program-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow-x: hidden;
+  }
+
+  .navbar {
+    position: sticky;
+    top: 0;
+    height: auto;
+    display: block;
+    padding: 10px 16px 12px;
+  }
+
+  .brand {
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+
+  .logo-box {
+    width: 54px;
+    height: 54px;
+  }
+
+  .brand-text {
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  .nav-menu {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 22px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    padding: 4px 2px 6px;
+    font-size: 15px;
+    scrollbar-width: none;
+  }
+
+  .nav-menu::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-menu > a,
+  .nav-item > a {
+    padding: 8px 0;
+    white-space: nowrap;
+  }
+
+  .nav-menu > a::after,
+  .nav-item > a::after {
+    bottom: 0;
+  }
+
+  .dropdown {
+    top: 34px;
+    width: 190px;
+  }
+
+  section#beranda.hero {
+    margin-top: 0;
+    min-height: calc(100svh - 118px);
+    padding: 56px 22px 70px;
+    align-items: center;
+  }
+
+  .hero-content {
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(38px, 11vw, 54px);
+    line-height: 1.12;
+  }
+
+  .hero-content p {
+    max-width: 100%;
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.75;
+  }
+
+  .hero-actions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 28px;
+  }
+
+  .hero-actions a {
+    width: 100%;
+    min-width: 0;
+    height: 52px;
+    font-size: 15px;
+  }
+
+  section {
+    padding: 80px 6%;
+  }
+
+  .about-section {
+    padding-top: 80px;
+  }
+
+  .section-header {
+    padding: 34px 22px;
+    margin-bottom: 45px;
+  }
+
+  .section-header h2 {
+    font-size: 38px;
+  }
+
+  .section-header p {
+    font-size: 14px;
+  }
+
+  .about-grid,
+  .visi-grid,
+  .program-grid,
+  .card-grid,
+  .contact-box {
+    grid-template-columns: 1fr;
+  }
+
+  .image-placeholder {
+    height: 320px;
+  }
+
+  .visi-card {
+    padding: 34px 24px;
+  }
+
+  .visi-card h3 {
+    font-size: 38px;
+    margin-bottom: 22px;
+  }
+
+  .visi-card .visi-text {
+    font-size: 20px;
+  }
+
+  .visi-card .misi-text {
+    font-size: 15px;
+  }
+
+  #program {
+    scroll-margin-top: 120px;
+    padding-top: 90px;
+  }
+
+  .program-grid {
+    gap: 24px;
+  }
+
+  .program-card {
+    min-height: auto;
+    padding: 28px 24px;
+  }
+
+  .program-top {
+    gap: 16px;
+  }
+
+  .program-icon {
+    width: 72px;
+    height: 72px;
+    min-width: 72px;
+    font-size: 30px;
+    border-radius: 20px;
+  }
+
+  .program-card h3 {
+    font-size: 24px;
+  }
+
+  .program-card p {
+    font-size: 15px;
+  }
+
+  .program-status,
+  .program-time {
+    min-height: 34px;
+    padding: 7px 14px;
+    font-size: 13px;
+  }
+
+  .media-card .image-placeholder {
+    height: 210px;
+  }
+
+  .teacher-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .teacher-table th,
+  .teacher-table td {
+    font-size: 14px;
+    padding: 15px;
+  }
+
+  .contact-box {
+    padding: 32px 24px;
+    gap: 34px;
+  }
+
+  .contact-info h3 {
+    font-size: 38px;
+  }
+
+  .map-box,
+  .map-box iframe {
+    min-height: 320px;
+  }
+
+  .footer-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 48px 6%;
+    gap: 30px;
+  }
+
+  .footer-col:first-child,
+  .footer-col:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 8px 14px 10px;
+  }
+
+  .brand {
+    margin-bottom: 6px;
+  }
+
+  .logo-box {
+    width: 48px;
+    height: 48px;
+  }
+
+  .brand-text {
+    font-size: 11px;
+  }
+
+  .nav-menu {
+    gap: 20px;
+    font-size: 14px;
+  }
+
+  section#beranda.hero {
+    min-height: calc(100svh - 104px);
+    padding: 42px 18px 58px;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(34px, 12vw, 42px);
+  }
+
+  .hero-content p {
+    font-size: 13.5px;
+    line-height: 1.7;
+  }
+
+  .hero-actions a {
+    height: 50px;
+    font-size: 14px;
+  }
+
+  section {
+    padding: 70px 5%;
+  }
+
+  .section-header {
+    padding: 30px 20px;
+  }
+
+  .section-header h2 {
+    font-size: 34px;
+  }
+
+  .about-text h2 {
+    font-size: 38px;
+  }
+
+  .image-placeholder {
+    height: 290px;
+  }
+
+  .program-card {
+    padding: 24px 20px;
+  }
+
+  .program-top {
+    flex-direction: column;
+  }
+
+  .program-badges,
+  .program-time {
+    width: 100%;
+  }
+
+  .program-link {
+    display: flex;
+  }
+
+  .contact-row {
+    font-size: 14px;
+  }
+
+  .map-box,
+  .map-box iframe {
+    min-height: 280px;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    padding: 42px 6%;
+    gap: 26px;
+  }
+
+  .footer-col:first-child,
+  .footer-col:last-child {
+    grid-column: auto;
+  }
+
+  .footer-col h3 {
+    font-size: 28px;
+  }
+
+  .footer-col h4 {
+    font-size: 17px;
+    margin-bottom: 12px;
+  }
+
+  .footer-bottom {
+    font-size: 13px;
+  }
+}
+
   </style>
 </head>
 
@@ -1344,12 +1537,21 @@
 
  {{-- BERANDA --}}
 <section id="beranda" class="hero">
-  <div class="hero-actions">
-    <a href="https://linktr.ee/rumahtahfidzquranal_falah" target="_blank" rel="noopener noreferrer">
-      Informasi
-    </a>
+  <div class="hero-content">
+    <h1>Rumah Tahfidz Qur’an Al-Falah</h1>
 
-    <a href="#program">Jelajahi Program</a>
+    <p>
+      Membentuk generasi Qur’ani yang berakhlak mulia, cinta Al-Qur’an,
+      dan semangat dalam menuntut ilmu.
+    </p>
+
+    <div class="hero-actions">
+      <a href="https://linktr.ee/rumahtahfidzquranal_falah" target="_blank" rel="noopener noreferrer">
+        Informasi
+      </a>
+
+      <a href="#program">Jelajahi Program</a>
+    </div>
   </div>
 </section>
 
@@ -1725,8 +1927,96 @@
   </section>
 
 
-  <footer>
-    © {{ date('Y') }} Rumah Tahfidz Qur'an Al-Falah. All rights reserved.
+  <footer class="site-footer">
+    <div class="footer-container">
+
+      <div class="footer-col">
+        <h3>Rumah Tahfidz Qur'an Al-Falah</h3>
+        <p>
+          Media informasi digital Rumah Tahfidz Qur'an Al-Falah sebagai sarana
+          informasi program pembelajaran, kegiatan, fasilitas, data pengajar,
+          dan kontak lembaga.
+        </p>
+
+        <div class="footer-social">
+          <a href="https://www.instagram.com/rq.al_falahbjm?igsh=MWMxNzNkNTFkbmJpZw=="
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram Rumah Tahfidz Al-Falah">
+            📷
+          </a>
+
+          <a href="https://wa.me/6287814678787"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp Rumah Tahfidz Al-Falah">
+            ☎
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Menu Utama</h4>
+        <ul>
+          <li><a href="#beranda">Beranda</a></li>
+          <li><a href="#tentang">Profil</a></li>
+          <li><a href="#program">Program</a></li>
+          <li><a href="#berita">Berita</a></li>
+          <li><a href="#kontak">Kontak</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Informasi</h4>
+        <ul>
+          <li><a href="#visi-misi">Visi & Misi</a></li>
+          <li><a href="#fasilitas">Fasilitas</a></li>
+          <li><a href="#pengajar">Data Pengajar</a></li>
+          <li>
+            <a href="https://linktr.ee/rumahtahfidzquranal_falah"
+              target="_blank"
+              rel="noopener noreferrer">
+              Pendaftaran / Informasi
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Kontak Kami</h4>
+
+        <div class="footer-contact-item">
+          <span>📍</span>
+          <p>
+            Jl. Jahri Saleh Komp. Pandan Arum Permai, Blok D Jalur 5,
+            Surgi Mufti, Banjarmasin Utara.
+          </p>
+        </div>
+
+        <div class="footer-contact-item">
+          <span>📞</span>
+          <p>
+            <a href="https://wa.me/6287814678787" target="_blank" rel="noopener noreferrer">
+              087814678787
+            </a>
+          </p>
+        </div>
+
+        <div class="footer-contact-item">
+          <span>✉</span>
+          <p>
+            <a href="mailto:rumahquranalfalah18@gmail.com">
+              rumahquranalfalah18@gmail.com
+            </a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      © {{ date('Y') }} Rumah Tahfidz Qur'an Al-Falah. All rights reserved.
+    </div>
   </footer>
 
   <script>
