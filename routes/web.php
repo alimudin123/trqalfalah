@@ -27,7 +27,8 @@ Route::get('/', function () {
         'beritas'
     ));
 });
-
+Route::get('/berita', [BeritaController::class, 'index']);
+Route::get('/program', [ProgramController::class, 'index']);
 Route::middleware(['auth', 'verified'])
     ->prefix('admin')
     ->group(function () {
