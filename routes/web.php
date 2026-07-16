@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\TentangKamiController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PendaftaranController;
 
 
 
@@ -52,17 +53,32 @@ Route::get('/', function () {
 
 });
 
-
-
-
-
 /*
 |--------------------------------------------------------------------------
-| Admin
+| Pendaftaran
 |--------------------------------------------------------------------------
 */
+Route::prefix('pendaftaran')->group(function () {
 
-Route::middleware(['auth','verified'])
+    Route::get('/', [PendaftaranController::class, 'index'])
+        ->name('pendaftaran.index');
+
+    Route::get('/create', [PendaftaranController::class, 'create'])
+        ->name('pendaftaran.create');
+
+    Route::post('/', [PendaftaranController::class, 'store'])
+        ->name('pendaftaran.store');
+
+    Route::get('/{pendaftaran}', [PendaftaranController::class, 'show'])
+        ->name('pendaftaran.show');
+
+});
+
+Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran');
+
+
+
+Route::middleware(['auth', 'verified'])
     ->prefix('admin')
     ->group(function () {
 
@@ -76,7 +92,7 @@ Route::middleware(['auth','verified'])
 
         Route::get(
             '/dashboard',
-            [DashboardController::class,'dashboard']
+            [DashboardController::class, 'dashboard']
         )->name('dashboard');
 
 
@@ -88,34 +104,44 @@ Route::middleware(['auth','verified'])
         | Berita
         |--------------------------------------------------------------------------
         */
-
-        Route::resource(
-            'berita',
-            BeritaController::class
-        );
-
-
-
-
+        Route::resource('berita', BeritaController::class);
 
         /*
         |--------------------------------------------------------------------------
         | Program
         |--------------------------------------------------------------------------
         */
-
-        Route::resource(
-            'program',
-            ProgramController::class
-        );
-
+        Route::resource('program', ProgramController::class);
 
         Route::put(
             '/program/{id}/toggle-status',
-            [ProgramController::class,'toggleStatus']
+            [ProgramController::class, 'toggleStatus']
         )->name('program.toggle-status');
 
 
+        /*
+        |--------------------------------------------------------------------------
+        | Pendaftaran
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/pendaftaran', [PendaftaranController::class, 'index'])
+            ->name('admin.pendaftaran.index');
+
+        Route::get('/pendaftaran/{pendaftaran}/edit', [PendaftaranController::class, 'edit'])
+            ->name('admin.pendaftaran.edit');
+
+        Route::put('/pendaftaran/{pendaftaran}', [PendaftaranController::class, 'update'])
+            ->name('admin.pendaftaran.update');
+
+        Route::get('/pendaftaran/pdf', [PendaftaranController::class, 'pdf'])
+            ->name('admin.pendaftaran.pdf');
+
+        Route::get('/pendaftaran/{pendaftaran}', [PendaftaranController::class, 'show'])
+            ->name('admin.pendaftaran.show');
+
+        Route::delete('/pendaftaran/{pendaftaran}', [PendaftaranController::class, 'destroy'])
+            ->name('admin.pendaftaran.destroy');
 
 
 
@@ -129,7 +155,7 @@ Route::middleware(['auth','verified'])
 
         Route::prefix('tentang-kami')
             ->controller(TentangKamiController::class)
-            ->group(function(){
+            ->group(function () {
 
 
                 Route::get(
@@ -197,24 +223,24 @@ Route::middleware(['auth','verified'])
 */
 
 Route::middleware('auth')
-    ->group(function(){
+    ->group(function () {
 
 
         Route::get(
             '/profile',
-            [ProfileController::class,'edit']
+            [ProfileController::class, 'edit']
         )->name('profile.edit');
 
 
         Route::patch(
             '/profile',
-            [ProfileController::class,'update']
+            [ProfileController::class, 'update']
         )->name('profile.update');
 
 
         Route::delete(
             '/profile',
-            [ProfileController::class,'destroy']
+            [ProfileController::class, 'destroy']
         )->name('profile.destroy');
 
 
@@ -222,4 +248,4 @@ Route::middleware('auth')
 
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
