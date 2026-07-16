@@ -1806,7 +1806,7 @@
 
       @forelse($prestasi ?? [] as $item)
 
-      <div class="media-card">
+      <a href="{{ route('prestasi.show', $item->id) }}" class="media-card" style="text-decoration: none; color: inherit; display: block;">
 
         <div class="image-placeholder">
 
@@ -1856,7 +1856,7 @@
 
         </div>
 
-      </div>
+      </a>
 
       @empty
 

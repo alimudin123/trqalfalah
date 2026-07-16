@@ -65,6 +65,17 @@ Route::prefix('pendaftaran')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
+| Public Show Routes (Tanpa Login)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('admin')->group(function () {
+    Route::get('/berita/{berita}', [BeritaController::class, 'show'])->name('berita.show');
+    Route::get('/program/{program}', [ProgramController::class, 'show'])->name('program.show');
+    Route::get('/prestasi/{prestasi}', [PrestasiController::class, 'show'])->name('prestasi.show');
+});
+
+/*
+|--------------------------------------------------------------------------
 | ADMIN
 |--------------------------------------------------------------------------
 */
@@ -95,7 +106,7 @@ Route::middleware(['auth', 'verified'])
         Route::resource(
             'berita',
             BeritaController::class
-        );
+        )->except(['show']);
 
         Route::delete(
             '/berita/media/{id}',
@@ -113,7 +124,7 @@ Route::middleware(['auth', 'verified'])
         Route::resource(
             'program',
             ProgramController::class
-        );
+        )->except(['show']);
 
         Route::put(
             'program/{id}/toggle-status',
@@ -266,7 +277,7 @@ Route::middleware(['auth', 'verified'])
         Route::resource(
             'prestasi',
             PrestasiController::class
-        );
+        )->except(['show']);
 
         Route::delete(
             'prestasi/media/{media}',
