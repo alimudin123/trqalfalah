@@ -1259,42 +1259,22 @@ Tidak ada media
 
 
 <td>
-
-
-
+<div class="d-flex gap-2">
+<a href="{{ route('tentang-kami.prestasi.edit',$item->id) }}" class="btn btn-warning btn-sm text-white">
+<i class="fa-solid fa-pen"></i> Edit
+</a>
 <form
-
 action="{{ route('tentang-kami.prestasi.destroy',$item->id) }}"
-
 method="POST"
-
-onsubmit="return confirm('Hapus prestasi ini?')">
-
-
+onsubmit="return confirm('Hapus prestasi ini?')"
+class="d-inline">
 @csrf
-
 @method('DELETE')
-
-
-
-<button
-
-class="btn btn-danger btn-sm">
-
-
-<i class="fa-solid fa-trash"></i>
-
-Hapus
-
-
+<button class="btn btn-danger btn-sm">
+<i class="fa-solid fa-trash"></i> Hapus
 </button>
-
-
-
 </form>
-
-
-
+</div>
 </td>
 
 

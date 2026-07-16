@@ -243,6 +243,28 @@
             {{ $berita->isi }}
         </div>
 
+        @if($berita->media && $berita->media->count() > 0)
+        <div class="gallery-section" style="margin-top: 40px; padding-top: 25px; border-top: 1px solid #ead7c2;">
+            <h3 style="font-size: 24px; color: #12372a; margin-bottom: 20px;">Dokumentasi Kegiatan</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px;">
+                @foreach($berita->media as $media)
+                    <div style="background: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); border: 1px solid #ead7c2;">
+                        @if($media->tipe == 'foto')
+                            <a href="{{ asset('storage/'.$media->file) }}" target="_blank">
+                                <img src="{{ asset('storage/'.$media->file) }}" alt="Dokumentasi" style="width: 100%; height: 160px; object-fit: cover; display: block; transition: 0.3s;">
+                            </a>
+                        @elseif($media->tipe == 'video')
+                            <video style="width: 100%; height: 160px; object-fit: cover; display: block;" controls>
+                                <source src="{{ asset('storage/'.$media->file) }}">
+                                Browser Anda tidak mendukung video HTML5.
+                            </video>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        @endif
+
         <div class="aksi">
 
             <a href="{{ url('/') }}" class="btn btn-outline">

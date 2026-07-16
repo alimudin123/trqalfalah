@@ -165,6 +165,12 @@
 
     <div class="form-body">
 
+        @if (session('success'))
+            <div class="alert alert-success mb-4">
+                {{ session('success') }}
+            </div>
+        @endif
+
         @if ($errors->any())
             <div class="alert alert-danger mb-4">
                 <strong>Terjadi kesalahan!</strong>
@@ -204,7 +210,7 @@
 
             @if(!empty($berita->gambar))
                 <div class="old-image-box">
-                    <label class="form-label d-block">Gambar Lama</label>
+                    <label class="form-label d-block">Gambar Sampul Lama</label>
 
                     <img
                         src="{{ asset('storage/' . $berita->gambar) }}"
@@ -213,7 +219,7 @@
             @endif
 
             <div class="mb-4">
-                <label for="gambar" class="form-label">Upload Gambar Baru</label>
+                <label for="gambar" class="form-label">Upload Gambar Sampul Baru</label>
 
                 <div class="upload-box">
                     <input
@@ -224,7 +230,47 @@
                         accept="image/*">
 
                     <small class="text-muted d-block mt-2">
-                        Kosongkan jika tidak ingin mengganti gambar.
+                        Kosongkan jika tidak ingin mengganti gambar sampul.
+                    </small>
+                </div>
+            </div>
+
+            @if($berita->media && $berita->media->count() > 0)
+                <div class="old-image-box">
+                    <label class="form-label d-block">Media Dokumentasi Saat Ini</label>
+                    <div class="d-flex flex-wrap gap-3 mt-2">
+                        @foreach($berita->media as $media)
+                            <div class="d-flex flex-column align-items-center bg-light p-2 rounded border" style="width: 150px;">
+                                @if($media->tipe == 'foto')
+                                    <img src="{{ asset('storage/' . $media->file) }}" style="width: 130px; height: 90px; object-fit: cover; border-radius: 8px;">
+                                @elseif($media->tipe == 'video')
+                                    <video style="width: 130px; height: 90px; border-radius: 8px; object-fit: cover;" controls>
+                                        <source src="{{ asset('storage/' . $media->file) }}">
+                                    </video>
+                                @endif
+                                <button type="button" class="btn btn-danger btn-sm w-100 py-1 mt-2" style="font-size: 11px;" onclick="if(confirm('Hapus media ini?')) { document.getElementById('delete-media-form-{{ $media->id }}').submit(); }">
+                                    <i class="fa-solid fa-trash me-1"></i>Hapus
+                                </button>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            @endif
+
+            <div class="mb-4">
+                <label for="media" class="form-label">Upload Media Dokumentasi Baru (Foto / Video)</label>
+
+                <div class="upload-box">
+                    <input
+                        type="file"
+                        name="media[]"
+                        id="media"
+                        class="form-control"
+                        accept="image/*,video/*"
+                        multiple>
+
+                    <small class="text-muted d-block mt-2">
+                        Bisa menambahkan beberapa foto atau video (misalnya, 3 foto dan 2 video).
                     </small>
                 </div>
             </div>
@@ -241,6 +287,15 @@
             </div>
 
         </form>
+
+        @if($berita->media && $berita->media->count() > 0)
+            @foreach($berita->media as $media)
+                <form id="delete-media-form-{{ $media->id }}" action="{{ route('berita.media.destroy', $media->id) }}" method="POST" class="d-none">
+                    @csrf
+                    @method('DELETE')
+                </form>
+            @endforeach
+        @endif
 
     </div>
 
