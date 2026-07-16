@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ProgramController;
 use App\Http\Controllers\Admin\PrestasiController;
 use App\Http\Controllers\Admin\TentangKamiController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PendaftaranController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +53,15 @@ Route::get('/', function () {
 
 });
 
-
+/*
+|--------------------------------------------------------------------------
+| Pendaftaran (Public)
+|--------------------------------------------------------------------------
+*/
+Route::prefix('pendaftaran')->group(function () {
+    Route::get('/create', [PendaftaranController::class, 'create'])->name('pendaftaran.create');
+    Route::post('/', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -110,6 +119,32 @@ Route::middleware(['auth', 'verified'])
             'program/{id}/toggle-status',
             [ProgramController::class, 'toggleStatus']
         )->name('program.toggle-status');
+
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | Pendaftaran (Admin)
+        |--------------------------------------------------------------------------
+        */
+
+        Route::get('/pendaftaran', [PendaftaranController::class, 'index'])
+            ->name('admin.pendaftaran.index');
+
+        Route::get('/pendaftaran/{pendaftaran}/edit', [PendaftaranController::class, 'edit'])
+            ->name('admin.pendaftaran.edit');
+
+        Route::put('/pendaftaran/{pendaftaran}', [PendaftaranController::class, 'update'])
+            ->name('admin.pendaftaran.update');
+
+        Route::get('/pendaftaran/pdf', [PendaftaranController::class, 'pdf'])
+            ->name('admin.pendaftaran.pdf');
+
+        Route::get('/pendaftaran/{pendaftaran}', [PendaftaranController::class, 'show'])
+            ->name('admin.pendaftaran.show');
+
+        Route::delete('/pendaftaran/{pendaftaran}', [PendaftaranController::class, 'destroy'])
+            ->name('admin.pendaftaran.destroy');
 
 
 

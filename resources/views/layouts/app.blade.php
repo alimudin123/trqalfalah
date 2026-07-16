@@ -1,214 +1,349 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="id">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title', 'RTQ Al-Falah')</title>
-
-    {{-- Fonts --}}
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600,700&display=swap" rel="stylesheet" />
+    <title>@yield('title', 'Rumah Tahfidz Qur\'an Al-Falah')</title>
 
     {{-- Vite --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    {{-- Google Font --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    {{-- Font Awesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #12372a;
+            --primary-dark: #0b241c;
+            --primary-soft: #d8eadf;
+
+            --secondary: #c88a2c;
+            --secondary-dark: #9a6418;
+            --secondary-soft: #fff1d6;
+
+            --background: #fffaf0;
+            --surface: #ffffff;
+            --surface-soft: #f7efe1;
+
+            --text-dark: #1f1f1f;
+            --text-muted: #6f665c;
+
+            --border: #ead9be;
+
+            --shadow: 0 14px 35px rgba(18, 55, 42, .12);
+            --shadow-soft: 0 8px 22px rgba(18, 55, 42, .08);
+
+            --radius: 18px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--background);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | NAVBAR
+        |--------------------------------------------------------------------------
+        */
+
+        .navbar {
+            width: 100%;
+            height: 88px;
+            background: rgba(255, 250, 240, .96);
+            backdrop-filter: blur(14px);
+            display: grid;
+            grid-template-columns: 320px 1fr 320px;
+            align-items: center;
+            padding: 0 48px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            border-bottom: 1px solid var(--border);
+            box-shadow: 0 8px 25px rgba(18, 55, 42, .08);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .logo-box {
+            width: 70px;
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .brand-text {
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--primary-dark);
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 46px;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .nav-menu>a,
+        .nav-item>a {
+            position: relative;
+            padding: 31px 0;
+            transition: .25s;
+        }
+
+        .nav-menu>a::after,
+        .nav-item>a::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 23px;
+            width: 0;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 20px;
+            transition: .25s;
+        }
+
+        .nav-menu>a:hover::after,
+        .nav-item:hover>a::after {
+            width: 100%;
+        }
+
+        .nav-menu>a:hover,
+        .nav-item:hover>a {
+            color: var(--secondary-dark);
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-item>a {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dropdown {
+            display: none;
+            position: absolute;
+            top: 76px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 13px 16px;
+            font-size: 14px;
+            border-bottom: 1px solid #f1e3cc;
+        }
+
+        .dropdown a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown a:hover {
+            background: var(--secondary-soft);
+            color: var(--secondary-dark);
+            padding-left: 22px;
+        }
+
+        .nav-item:hover .dropdown {
+            display: block;
+        }
+
+        .nav-spacer {
+            width: 320px;
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | CONTENT
+        |--------------------------------------------------------------------------
+        */
+
+        main {
+            padding-top: 88px;
+            min-height: 100vh;
+        }
+
+        @media(max-width:992px) {
+
+            .navbar {
+                grid-template-columns: 220px 1fr;
+                padding: 0 20px;
+            }
+
+            .nav-spacer {
+                display: none;
+            }
+
+            .nav-menu {
+                justify-content: flex-end;
+                gap: 22px;
+                font-size: 15px;
+            }
+
+        }
+
+        @media(max-width:768px) {
+
+            .navbar {
+                display: block;
+                height: auto;
+                padding: 12px 16px;
+            }
+
+            .brand {
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+            .nav-menu {
+                overflow-x: auto;
+                white-space: nowrap;
+                justify-content: flex-start;
+                gap: 20px;
+                font-size: 15px;
+            }
+
+            .nav-menu::-webkit-scrollbar {
+                display: none;
+            }
+
+            .dropdown {
+                top: 38px;
+            }
+
+            main {
+                padding-top: 120px;
+            }
+
+        }
+    </style>
+
+    @stack('style')
 </head>
 
-<body class="font-sans antialiased bg-orange-50 text-gray-800">
+<body>
 
     {{-- NAVBAR --}}
-    <nav class="fixed top-0 z-50 w-full bg-white/90 backdrop-blur-md shadow-sm">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="flex items-center justify-between h-20">
+    <nav class="navbar">
 
-                {{-- LOGO --}}
-                <div class="flex items-center gap-3">
-                    <a href="/" class="flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-full bg-emerald-800 text-white flex items-center justify-center font-bold">
-                            RTQ
-                        </div>
-
-                        <div>
-                            <h1 class="text-lg md:text-xl font-bold text-emerald-900 leading-tight">
-                                RTQ Al-Falah
-                            </h1>
-                            <p class="text-xs text-amber-700">
-                                Rumah Tahfidz Qur'an
-                            </p>
-                        </div>
-                    </a>
+        <div class="brand">
+            <a href="{{ url('/') }}" style="display:flex;align-items:center;gap:14px;">
+                <div class="logo-box">
+                    <img src="{{ asset('images/logo.jpeg') }}" alt="Logo Rumah Tahfidz Al-Falah">
                 </div>
 
-                {{-- MENU DESKTOP --}}
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="/"
-                        class="text-sm font-semibold text-emerald-800 hover:text-amber-600 transition">
-                        Beranda
-                    </a>
-
-                    <a href="/tentang-kami"
-                        class="text-sm font-semibold text-emerald-800 hover:text-amber-600 transition">
-                        Tentang Kami
-                    </a>
-
-                    <a href="/program"
-                        class="text-sm font-semibold text-emerald-800 hover:text-amber-600 transition">
-                        Program
-                    </a>
-
-                    <a href="/berita"
-                        class="text-sm font-semibold text-emerald-800 hover:text-amber-600 transition">
-                        Berita
-                    </a>
-
-                    <a href="/kontak"
-                        class="text-sm font-semibold text-emerald-800 hover:text-amber-600 transition">
-                        Kontak
-                    </a>
+                <div class="brand-text">
+                    Rumah Tahfidz <br>
+                    Qur'an Al-Falah
                 </div>
-
-                {{-- RIGHT MENU --}}
-                <div class="hidden md:flex items-center gap-4">
-
-                    @guest
-                    <a href="{{ route('login') }}"
-                        class="px-5 py-2 bg-emerald-800 hover:bg-emerald-900 text-white text-sm font-semibold rounded-lg transition">
-                        Login
-                    </a>
-                    @endguest
-
-                    @auth
-                    <a href="/admin/dashboard"
-                        class="text-sm font-semibold text-emerald-800 hover:text-amber-600 transition">
-                        Dashboard
-                    </a>
-
-                    <div class="menu">
-                        <form action="{{ route('logout') }}" method="POST" class="logout-form">
-                            @csrf
-
-                            <button type="submit" class="logout-button">
-                                <i class="fa-solid fa-right-from-bracket"></i>
-                                <span>Logout</span>
-                            </button>
-                        </form>
-                    </div>
-                    @endauth
-
-                </div>
-
-                {{-- MOBILE BUTTON --}}
-                <button id="mobileMenuButton" class="md:hidden text-emerald-900 text-2xl">
-                    ☰
-                </button>
-            </div>
+            </a>
         </div>
 
-        {{-- MOBILE MENU --}}
-        <div id="mobileMenu" class="hidden md:hidden bg-white border-t border-orange-100">
-            <div class="px-6 py-4 space-y-3">
-                <a href="/" class="block text-sm font-semibold text-emerald-800">Beranda</a>
-                <a href="/tentang-kami" class="block text-sm font-semibold text-emerald-800">Tentang Kami</a>
-                <a href="/program" class="block text-sm font-semibold text-emerald-800">Program</a>
-                <a href="/berita" class="block text-sm font-semibold text-emerald-800">Berita</a>
-                <a href="/kontak" class="block text-sm font-semibold text-emerald-800">Kontak</a>
+        <div class="nav-menu">
 
-                @guest
-                <a href="{{ route('login') }}"
-                    class="block w-full text-center px-4 py-2 bg-emerald-800 text-white text-sm rounded-lg">
-                    Login
-                </a>
-                @endguest
+            <a href="{{ url('/#beranda') }}">
+                Beranda
+            </a>
 
-                @auth
-                <a href="/admin/dashboard"
-                    class="block text-sm font-semibold text-emerald-800">
-                    Dashboard
+            <div class="nav-item">
+
+                <a href="{{ url('/#tentang') }}">
+                    Profil <span>▾</span>
                 </a>
 
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
+                <div class="dropdown">
+                    <a href="{{ url('/#tentang') }}">Tentang Kami</a>
+                    <a href="{{ url('/#visi-misi') }}">Visi Misi</a>
+                    <a href="{{ url('/#fasilitas') }}">Fasilitas</a>
+                    <a href="{{ url('/#pengajar') }}">Data Pengajar</a>
+                </div>
 
-                    <button type="submit"
-                        class="w-full px-4 py-2 bg-amber-700 text-white text-sm rounded-lg">
-                        Logout
-                    </button>
-                </form>
-                @endauth
             </div>
+
+            <a href="{{ url('/#program') }}">
+                Program
+            </a>
+
+            <a href="{{ url('/#berita') }}">
+                Berita
+            </a>
+
+            <a href="{{ url('/#kontak') }}">
+                Kontak
+            </a>
+
         </div>
+
+        <div class="nav-spacer"></div>
+
     </nav>
 
-
     {{-- CONTENT --}}
-    <main class="pt-20 min-h-screen">
+    <main>
         @yield('content')
     </main>
 
-
-    {{-- FOOTER --}}
-    <footer class="bg-emerald-950 text-white mt-16">
-        <div class="max-w-7xl mx-auto px-6 py-10">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-                <div>
-                    <h3 class="text-xl font-bold mb-3">
-                        RTQ Al-Falah
-                    </h3>
-                    <p class="text-sm text-emerald-100 leading-relaxed">
-                        Rumah Tahfidz Qur'an Al-Falah adalah lembaga pendidikan Al-Qur'an
-                        yang berfokus pada pembelajaran membaca, menghafal, dan memperbaiki
-                        bacaan Al-Qur'an.
-                    </p>
-                </div>
-
-                <div>
-                    <h4 class="font-semibold mb-3">
-                        Menu
-                    </h4>
-
-                    <ul class="space-y-2 text-sm text-emerald-100">
-                        <li><a href="/" class="hover:text-amber-300">Beranda</a></li>
-                        <li><a href="/tentang-kami" class="hover:text-amber-300">Tentang Kami</a></li>
-                        <li><a href="/program" class="hover:text-amber-300">Program</a></li>
-                        <li><a href="/berita" class="hover:text-amber-300">Berita</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-semibold mb-3">
-                        Kontak
-                    </h4>
-
-                    <p class="text-sm text-emerald-100">
-                        Samarinda, Kalimantan Timur
-                    </p>
-
-                    <p class="text-sm text-emerald-100 mt-2">
-                        Email: info@rtqalfalah.id
-                    </p>
-                </div>
-
-            </div>
-
-            <div class="border-t border-emerald-800 mt-8 pt-5 text-center text-sm text-emerald-200">
-                © {{ date('Y') }} Rumah Tahfidz Qur'an Al-Falah. All rights reserved.
-            </div>
-        </div>
-    </footer>
-
-
-    {{-- SCRIPT MOBILE MENU --}}
-    <script>
-        const mobileButton = document.getElementById('mobileMenuButton');
-        const mobileMenu = document.getElementById('mobileMenu');
-
-        mobileButton.addEventListener('click', function() {
-            mobileMenu.classList.toggle('hidden');
-        });
-    </script>
+    @stack('script')
 
 </body>
 
