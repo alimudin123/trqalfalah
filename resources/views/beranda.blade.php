@@ -1523,6 +1523,7 @@ section#beranda.hero {
         <a href="#visi-misi">Visi Misi</a>
         <a href="#fasilitas">Fasilitas</a>
         <a href="#pengajar">Data Pengajar</a>
+        <a href="#prestasi">Prestasi</a>
       </div>
     </div>
 
@@ -1786,6 +1787,102 @@ section#beranda.hero {
       </tbody>
     </table>
   </section>
+
+
+  {{-- PRESTASI --}}
+  <section id="prestasi">
+
+    <div class="section-header">
+      <h2>Prestasi</h2>
+      <p>
+        Berbagai pencapaian dan penghargaan yang telah diraih oleh
+        Rumah Tahfidz Qur’an Al-Falah.
+      </p>
+    </div>
+
+
+    <div class="card-grid">
+
+      @forelse($prestasi ?? [] as $item)
+
+      <div class="media-card">
+
+        <div class="image-placeholder">
+
+          @php
+              $media = $item->media->first();
+          @endphp
+
+          @if($media)
+
+              @if($media->tipe == 'foto')
+
+              <img
+                src="{{ asset('storage/' . $media->file) }}"
+                alt="{{ $item->judul ?? 'Prestasi' }}">
+
+              @elseif($media->tipe == 'video')
+
+              <video
+                controls
+                style="width:100%;height:100%;object-fit:cover;">
+                <source src="{{ asset('storage/' . $media->file) }}">
+              </video>
+
+              @endif
+
+          @else
+
+              <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#6f665c;">
+                  Belum ada dokumentasi
+              </div>
+
+          @endif
+
+        </div>
+
+
+        <div class="media-card-body">
+
+          <h3>
+            {{ $item->judul ?? 'Prestasi' }}
+          </h3>
+
+
+          <p>
+            {{ \Illuminate\Support\Str::limit($item->deskripsi ?? '', 120) }}
+          </p>
+
+        </div>
+
+      </div>
+
+      @empty
+
+      <div class="media-card">
+
+        <div class="image-placeholder"></div>
+
+        <div class="media-card-body">
+
+          <h3>
+            Belum ada data prestasi
+          </h3>
+
+          <p>
+            Data prestasi akan tampil setelah ditambahkan oleh admin.
+          </p>
+
+        </div>
+
+      </div>
+
+      @endforelse
+
+    </div>
+
+  </section>
+
 
 
   {{-- BERITA --}}
