@@ -1546,8 +1546,8 @@
       </p>
 
       <div class="hero-actions">
-        <a href="{{ route('pendaftaran.create') }}">
-          Daftar Sekarang
+        <a href="https://linktr.ee/rumahtahfidzquranal_falah" target="_blank" rel="noopener noreferrer">
+          Informasi
         </a>
 
         <a href="#program">Jelajahi Program</a>
