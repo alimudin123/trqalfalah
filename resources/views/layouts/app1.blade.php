@@ -28,6 +28,12 @@
                 'active' => request()->is('admin/dashboard'),
             ],
             [
+                'label' => 'Pendaftar',
+                'icon' => 'fa-solid fa-user',
+                'url' => url('/admin/pendaftaran'),
+                'active' => request()->is('admin/pendaftaran'),
+            ],
+            [
                 'label' => 'Berita',
                 'icon' => 'fa-solid fa-newspaper',
                 'url' => url('/admin/berita'),
@@ -354,8 +360,7 @@
                 {{-- MENU --}}
                 <nav class="menu">
                     @foreach ($menus as $menu)
-                        <a href="{{ $menu['url'] }}"
-                           class="menu-link {{ $menu['active'] ? 'active' : '' }}">
+                        <a href="{{ $menu['url'] }}" class="menu-link {{ $menu['active'] ? 'active' : '' }}">
                             <i class="{{ $menu['icon'] }}"></i>
                             <span>{{ $menu['label'] }}</span>
                         </a>
