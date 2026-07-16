@@ -1546,10 +1546,10 @@ section#beranda.hero {
     </p>
 
     <div class="hero-actions">
-      <a href="https://linktr.ee/rumahtahfidzquranal_falah" target="_blank" rel="noopener noreferrer">
-        Informasi
-      </a>
-
+      <a href="{{ route('pendaftaran.create') }}">
+          Daftar Sekarang
+        </a>
+        
       <a href="#program">Jelajahi Program</a>
     </div>
   </div>
