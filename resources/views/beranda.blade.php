@@ -2058,7 +2058,7 @@
           <li><a href="#fasilitas">Fasilitas</a></li>
           <li><a href="#pengajar">Data Pengajar</a></li>
           <li>
-            <a href="{{ route('register') }}">
+            <a href="{{ route('pendaftaran.create') }}">
               Pendaftaran / Informasi
             </a>
           </li>
