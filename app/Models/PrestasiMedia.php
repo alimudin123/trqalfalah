@@ -6,31 +6,33 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 
-class Prestasi extends Model
+class PrestasiMedia extends Model
 {
-
     use HasFactory;
+
+
+    protected $table = 'prestasi_media';
+
 
 
     protected $fillable = [
 
-        'judul',
+        'prestasi_id',
 
-        'deskripsi',
+        'file',
+
+        'tipe',
 
     ];
 
 
 
-    public function media()
+    public function prestasi()
     {
-
-        return $this->hasMany(
-            PrestasiMedia::class,
+        return $this->belongsTo(
+            Prestasi::class,
             'prestasi_id'
         );
-
     }
-
 
 }

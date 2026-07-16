@@ -7,15 +7,15 @@ use App\Models\Fasilitas;
 use App\Models\Pengajar;
 use App\Models\Program;
 use App\Models\Berita;
+use App\Models\Prestasi;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\ProgramController;
+use App\Http\Controllers\Admin\PrestasiController;
 use App\Http\Controllers\Admin\TentangKamiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PendaftaranController;
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -25,64 +25,53 @@ use App\Http\Controllers\PendaftaranController;
 
 Route::get('/', function () {
 
-    $tentang = TentangKami::first();
+    return view('beranda', [
 
-    $fasilitas = Fasilitas::latest()
-        ->take(6)
-        ->get();
+        'tentang' => TentangKami::first(),
 
-    $pengajar = Pengajar::latest()
-        ->get();
+        'fasilitas' => Fasilitas::latest()
+            ->take(6)
+            ->get(),
 
-    $programs = Program::latest()
-        ->take(4)
-        ->get();
+        'pengajar' => Pengajar::latest()
+            ->get(),
 
-    $beritas = Berita::latest()
-        ->take(6)
-        ->get();
+        'programs' => Program::latest()
+            ->take(4)
+            ->get(),
 
+        'beritas' => Berita::latest()
+            ->take(6)
+            ->get(),
 
-    return view('beranda', compact(
-        'tentang',
-        'fasilitas',
-        'pengajar',
-        'programs',
-        'beritas'
-    ));
+        'prestasi' => Prestasi::with('media')
+            ->latest()
+            ->take(6)
+            ->get(),
+
+    ]);
 
 });
 
 /*
 |--------------------------------------------------------------------------
-| Pendaftaran
+| Pendaftaran (Public)
 |--------------------------------------------------------------------------
 */
 Route::prefix('pendaftaran')->group(function () {
-
-    Route::get('/', [PendaftaranController::class, 'index'])
-        ->name('pendaftaran.index');
-
-    Route::get('/create', [PendaftaranController::class, 'create'])
-        ->name('pendaftaran.create');
-
-    Route::post('/', [PendaftaranController::class, 'store'])
-        ->name('pendaftaran.store');
-
-    Route::get('/{pendaftaran}', [PendaftaranController::class, 'show'])
-        ->name('pendaftaran.show');
-
+    Route::get('/create', [PendaftaranController::class, 'create'])->name('pendaftaran.create');
+    Route::post('/', [PendaftaranController::class, 'store'])->name('pendaftaran.store');
 });
 
-Route::get('/pendaftaran', [PendaftaranController::class, 'index'])->name('pendaftaran');
-
-
+/*
+|--------------------------------------------------------------------------
+| ADMIN
+|--------------------------------------------------------------------------
+*/
 
 Route::middleware(['auth', 'verified'])
     ->prefix('admin')
     ->group(function () {
-
-
 
         /*
         |--------------------------------------------------------------------------
@@ -97,31 +86,45 @@ Route::middleware(['auth', 'verified'])
 
 
 
-
-
         /*
         |--------------------------------------------------------------------------
         | Berita
         |--------------------------------------------------------------------------
         */
-        Route::resource('berita', BeritaController::class);
+
+        Route::resource(
+            'berita',
+            BeritaController::class
+        );
+
+        Route::delete(
+            '/berita/media/{id}',
+            [BeritaController::class, 'destroyMedia']
+        )->name('berita.media.destroy');
+
+
 
         /*
         |--------------------------------------------------------------------------
         | Program
         |--------------------------------------------------------------------------
         */
-        Route::resource('program', ProgramController::class);
+
+        Route::resource(
+            'program',
+            ProgramController::class
+        );
 
         Route::put(
-            '/program/{id}/toggle-status',
+            'program/{id}/toggle-status',
             [ProgramController::class, 'toggleStatus']
         )->name('program.toggle-status');
 
 
+
         /*
         |--------------------------------------------------------------------------
-        | Pendaftaran
+        | Pendaftaran (Admin)
         |--------------------------------------------------------------------------
         */
 
@@ -145,8 +148,6 @@ Route::middleware(['auth', 'verified'])
 
 
 
-
-
         /*
         |--------------------------------------------------------------------------
         | Tentang Kami
@@ -157,12 +158,16 @@ Route::middleware(['auth', 'verified'])
             ->controller(TentangKamiController::class)
             ->group(function () {
 
+                /*
+                |--------------------------------------------------------------------------
+                | Profil
+                |--------------------------------------------------------------------------
+                */
 
                 Route::get(
                     '/',
                     'index'
                 )->name('tentang-kami.index');
-
 
                 Route::post(
                     '/',
@@ -170,17 +175,22 @@ Route::middleware(['auth', 'verified'])
                 )->name('tentang-kami.store');
 
 
+
+                /*
+                |--------------------------------------------------------------------------
+                | Fasilitas
+                |--------------------------------------------------------------------------
+                */
+
                 Route::post(
                     '/fasilitas',
                     'storeFasilitas'
                 )->name('fasilitas.store');
 
-
-                Route::post(
-                    '/pengajar',
-                    'storePengajar'
-                )->name('pengajar.store');
-
+                Route::put(
+                    '/fasilitas/{id}',
+                    'updateFasilitas'
+                )->name('fasilitas.update');
 
                 Route::delete(
                     '/fasilitas/{id}',
@@ -188,31 +198,82 @@ Route::middleware(['auth', 'verified'])
                 )->name('fasilitas.destroy');
 
 
-                Route::delete(
-                    '/pengajar/{id}',
-                    'destroyPengajar'
-                )->name('pengajar.destroy');
 
+                /*
+                |--------------------------------------------------------------------------
+                | Pengajar
+                |--------------------------------------------------------------------------
+                */
 
-                Route::put(
-                    '/fasilitas/{id}',
-                    'updateFasilitas'
-                )->name('fasilitas.update');
-
+                Route::post(
+                    '/pengajar',
+                    'storePengajar'
+                )->name('pengajar.store');
 
                 Route::put(
                     '/pengajar/{id}',
                     'updatePengajar'
                 )->name('pengajar.update');
 
+                Route::delete(
+                    '/pengajar/{id}',
+                    'destroyPengajar'
+                )->name('pengajar.destroy');
+
+
+
+                /*
+                |--------------------------------------------------------------------------
+                | Prestasi (Tab Tentang Kami)
+                |--------------------------------------------------------------------------
+                */
+
+                Route::post(
+                    '/data-prestasi',
+                    'storePrestasi'
+                )->name('tentang-kami.prestasi.store');
+
+                Route::get(
+                    '/data-prestasi/{id}/edit',
+                    'editPrestasi'
+                )->name('tentang-kami.prestasi.edit');
+
+                Route::put(
+                    '/data-prestasi/{id}',
+                    'updatePrestasi'
+                )->name('tentang-kami.prestasi.update');
+
+                Route::delete(
+                    '/data-prestasi/{id}',
+                    'destroyPrestasi'
+                )->name('tentang-kami.prestasi.destroy');
+
+                Route::delete(
+                    '/data-prestasi/media/{id}',
+                    'destroyMedia'
+                )->name('tentang-kami.prestasi.media.destroy');
 
             });
 
 
+
+        /*
+        |--------------------------------------------------------------------------
+        | Menu Prestasi Mandiri
+        |--------------------------------------------------------------------------
+        */
+
+        Route::resource(
+            'prestasi',
+            PrestasiController::class
+        );
+
+        Route::delete(
+            'prestasi/media/{media}',
+            [PrestasiController::class, 'destroyMedia']
+        )->name('prestasi.media.destroy');
+
     });
-
-
-
 
 
 
@@ -225,24 +286,20 @@ Route::middleware(['auth', 'verified'])
 Route::middleware('auth')
     ->group(function () {
 
-
         Route::get(
             '/profile',
             [ProfileController::class, 'edit']
         )->name('profile.edit');
-
 
         Route::patch(
             '/profile',
             [ProfileController::class, 'update']
         )->name('profile.update');
 
-
         Route::delete(
             '/profile',
             [ProfileController::class, 'destroy']
         )->name('profile.destroy');
-
 
     });
 
