@@ -16,28 +16,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     @php
-        $adminName = auth()->check() ? auth()->user()->name : 'Admin';
+        $admin = auth()->user();
+        $adminName = $admin?->name ?? 'Admin';
         $adminInitial = strtoupper(substr($adminName, 0, 1));
 
-        $logoutAction = \Illuminate\Support\Facades\Route::has('logout')
-            ? route('logout')
-            : url('/logout');
+        $menus = [
+            [
+                'label' => 'Dashboard',
+                'icon' => 'fa-solid fa-house',
+                'url' => url('/admin/dashboard'),
+                'active' => request()->is('admin/dashboard'),
+            ],
+            [
+                'label' => 'Berita',
+                'icon' => 'fa-solid fa-newspaper',
+                'url' => url('/admin/berita'),
+                'active' => request()->is('admin/berita*'),
+            ],
+            [
+                'label' => 'Program Pembelajaran',
+                'icon' => 'fa-solid fa-book-open',
+                'url' => url('/admin/program'),
+                'active' => request()->is('admin/program*'),
+            ],
+            [
+                'label' => 'Tentang Kami',
+                'icon' => 'fa-solid fa-circle-info',
+                'url' => url('/admin/tentang-kami'),
+                'active' => request()->is('admin/tentang-kami*'),
+            ],
+        ];
     @endphp
 
     <style>
         :root {
             --bg-main: #fff7ed;
             --bg-sidebar: #fffaf3;
-            --bg-card: #ffffff;
-
             --primary: #b45309;
             --primary-dark: #7c2d12;
             --primary-soft: #fed7aa;
-
             --accent: #d97706;
             --text-dark: #3b2414;
             --text-muted: #8a6f5a;
-
             --border: #ead7c2;
             --shadow: 0 8px 22px rgba(124, 45, 18, 0.12);
         }
@@ -50,8 +70,14 @@
         }
 
         body {
+            min-height: 100vh;
             background: var(--bg-main);
             color: var(--text-dark);
+        }
+
+        .admin-wrapper {
+            min-height: 100vh;
+            display: flex;
         }
 
         .sidebar {
@@ -97,7 +123,7 @@
             gap: 12px;
         }
 
-        .menu a,
+        .menu-link,
         .logout-button {
             width: 100%;
             text-decoration: none;
@@ -116,14 +142,14 @@
             text-align: left;
         }
 
-        .menu a i,
+        .menu-link i,
         .logout-button i {
             width: 22px;
             font-size: 17px;
             color: var(--primary);
         }
 
-        .menu a:hover,
+        .menu-link:hover,
         .logout-button:hover {
             background: #ffedd5;
             color: var(--primary-dark);
@@ -131,14 +157,14 @@
             transform: translateX(4px);
         }
 
-        .menu a.active {
+        .menu-link.active {
             background: linear-gradient(135deg, #fed7aa, #fdba74);
             color: var(--primary-dark);
             border-color: #f59e0b;
             box-shadow: 0 5px 14px rgba(217, 119, 6, 0.22);
         }
 
-        .menu a.active i {
+        .menu-link.active i {
             color: var(--primary-dark);
         }
 
@@ -147,8 +173,9 @@
         }
 
         .main {
-            margin-left: 285px;
+            width: 100%;
             min-height: 100vh;
+            margin-left: 285px;
             background: var(--bg-main);
         }
 
@@ -248,7 +275,7 @@
             box-shadow: 0 0 0 0.2rem rgba(217, 119, 6, 0.18);
         }
 
-        footer {
+        .admin-footer {
             text-align: center;
             margin-top: 45px;
             color: var(--text-muted);
@@ -256,6 +283,10 @@
         }
 
         @media (max-width: 992px) {
+            .admin-wrapper {
+                display: block;
+            }
+
             .sidebar {
                 width: 100%;
                 height: auto;
@@ -292,6 +323,10 @@
             .topbar h1 {
                 font-size: 22px;
             }
+
+            .profile {
+                width: 100%;
+            }
         }
     </style>
 
@@ -300,85 +335,81 @@
 
 <body>
 
-    <aside class="sidebar">
+    <div class="admin-wrapper">
 
-        <div>
-            <div class="logo">
-                <img src="{{ asset('images/logo.jpeg') }}" alt="Logo Rumah Tahfidz">
+        {{-- SIDEBAR --}}
+        <aside class="sidebar">
 
-                <h5>
-                    Rumah Tahfidz <br>
-                    Qur'an Al-Falah
-                </h5>
-            </div>
+            <div>
+                {{-- LOGO --}}
+                <div class="logo">
+                    <img src="{{ asset('images/logo.jpeg') }}" alt="Logo Rumah Tahfidz">
 
-            <nav class="menu">
-                <a href="{{ url('/admin/dashboard') }}"
-                   class="{{ request()->is('admin/dashboard') ? 'active' : '' }}">
-                    <i class="fa-solid fa-house"></i>
-                    <span>Dashboard</span>
-                </a>
-
-                <a href="{{ url('/admin/berita') }}"
-                   class="{{ request()->is('admin/berita*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-newspaper"></i>
-                    <span>Berita</span>
-                </a>
-
-                <a href="{{ url('/admin/program') }}"
-                   class="{{ request()->is('admin/program*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-book-open"></i>
-                    <span>Program Pembelajaran</span>
-                </a>
-
-                <a href="{{ url('/admin/tentang-kami') }}"
-                   class="{{ request()->is('admin/tentang-kami*') ? 'active' : '' }}">
-                    <i class="fa-solid fa-circle-info"></i>
-                    <span>Tentang Kami</span>
-                </a>
-            </nav>
-        </div>
-
-        <div class="menu">
-            <form action="{{ $logoutAction }}" method="POST" class="logout-form">
-                @csrf
-
-                <button type="submit" class="logout-button">
-                    <i class="fa-solid fa-right-from-bracket"></i>
-                    <span>Logout</span>
-                </button>
-            </form>
-        </div>
-
-    </aside>
-
-    <main class="main">
-
-        <header class="topbar">
-            <h1>@yield('page-title', 'Admin Dashboard')</h1>
-
-            <div class="profile">
-                <div class="profile-circle">
-                    {{ $adminInitial }}
+                    <h5>
+                        Rumah Tahfidz <br>
+                        Qur'an Al-Falah
+                    </h5>
                 </div>
 
-                <div>
-                    <strong>{{ $adminName }}</strong><br>
-                    <small>Administrator</small>
-                </div>
+                {{-- MENU --}}
+                <nav class="menu">
+                    @foreach ($menus as $menu)
+                        <a href="{{ $menu['url'] }}"
+                           class="menu-link {{ $menu['active'] ? 'active' : '' }}">
+                            <i class="{{ $menu['icon'] }}"></i>
+                            <span>{{ $menu['label'] }}</span>
+                        </a>
+                    @endforeach
+                </nav>
             </div>
-        </header>
 
-        <section class="content-area">
-            @yield('content')
+            {{-- LOGOUT --}}
+            <div class="menu">
+                <form action="{{ route('logout') }}" method="POST" class="logout-form">
+                    @csrf
 
-            <footer>
-                © {{ date('Y') }} Rumah Tahfidz Qur'an Al-Falah. All rights reserved.
-            </footer>
-        </section>
+                    <button type="submit" class="logout-button">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Logout</span>
+                    </button>
+                </form>
+            </div>
 
-    </main>
+        </aside>
 
+        {{-- MAIN --}}
+        <main class="main">
+
+            {{-- TOPBAR --}}
+            <header class="topbar">
+                <h1>@yield('page-title', 'Admin Dashboard')</h1>
+
+                <div class="profile">
+                    <div class="profile-circle">
+                        {{ $adminInitial }}
+                    </div>
+
+                    <div>
+                        <strong>{{ $adminName }}</strong><br>
+                        <small>Administrator</small>
+                    </div>
+                </div>
+            </header>
+
+            {{-- CONTENT --}}
+            <section class="content-area">
+                @yield('content')
+
+                <footer class="admin-footer">
+                    © {{ date('Y') }} Rumah Tahfidz Qur'an Al-Falah. All rights reserved.
+                </footer>
+            </section>
+
+        </main>
+
+    </div>
+
+    {{-- Bootstrap JS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     @stack('script')
