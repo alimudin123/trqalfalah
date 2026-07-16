@@ -5,21 +5,22 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Berita extends Model
+class BeritaMedia extends Model
 {
     use HasFactory;
 
+    protected $table = 'berita_media';
+
     protected $fillable = [
-        'judul',
-        'isi',
-        'gambar',
-        'tanggal'
+        'berita_id',
+        'file',
+        'tipe',
     ];
 
-    public function media()
+    public function berita()
     {
-        return $this->hasMany(
-            BeritaMedia::class,
+        return $this->belongsTo(
+            Berita::class,
             'berita_id'
         );
     }

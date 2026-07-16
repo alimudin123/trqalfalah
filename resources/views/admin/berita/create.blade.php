@@ -185,7 +185,7 @@
             </div>
 
             <div class="mb-4">
-                <label for="gambar" class="form-label">Upload Gambar</label>
+                <label for="gambar" class="form-label">Upload Gambar Sampul</label>
                 <div class="upload-box">
                     <input
                         type="file"
@@ -194,6 +194,22 @@
                         class="form-control"
                         accept="image/*"
                         required>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="media" class="form-label">Media Dokumentasi Tambahan (Foto / Video)</label>
+                <div class="upload-box">
+                    <input
+                        type="file"
+                        name="media[]"
+                        id="media"
+                        class="form-control"
+                        accept="image/*,video/*"
+                        multiple>
+                    <small class="text-muted d-block mt-2">
+                        Bisa menambahkan beberapa foto atau video (misalnya, 3 foto dan 2 video).
+                    </small>
                 </div>
             </div>
 
