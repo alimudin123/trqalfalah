@@ -28,6 +28,11 @@ Route::get('/', function () {
     ));
 });
 
+Route::prefix('admin')->group(function () {
+    Route::resource('berita', BeritaController::class)->only('show');
+    Route::resource('program', ProgramController::class)->only('show');
+});
+
 Route::middleware(['auth', 'verified'])
     ->prefix('admin')
     ->group(function () {
@@ -46,14 +51,14 @@ Route::middleware(['auth', 'verified'])
         | Berita
         |--------------------------------------------------------------------------
         */
-        Route::resource('berita', BeritaController::class);
+        Route::resource('berita', BeritaController::class)->except('show');
 
         /*
         |--------------------------------------------------------------------------
         | Program Pembelajaran
         |--------------------------------------------------------------------------
         */
-        Route::resource('program', ProgramController::class);
+        Route::resource('program', ProgramController::class)->except('show');
 
         Route::put('/program/{id}/toggle-status', [ProgramController::class, 'toggleStatus'])
             ->name('program.toggle-status');
