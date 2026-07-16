@@ -126,6 +126,10 @@
                 src="{{ asset('storage/' . $program->gambar) }}"
                 alt="{{ $program->nama_program }}"
                 class="program-image">
+        @else
+            <div class="program-image" style="width: 100%; height: 300px; display: flex; align-items: center; justify-content: center; background: #ffedd5; color: #7c2d12; font-size: 72px; border-radius: 16px; margin-bottom: 30px; border: 1px solid #ead9be;">
+                📖
+            </div>
         @endif
 
         <h1>{{ $program->nama_program }}</h1>

@@ -1517,18 +1517,12 @@
         <a href="#tentang">
           Profil <span>▾</span>
         </a>
-
-      <div class="dropdown">
-        <a href="#tentang">Tentang Kami</a>
-        <a href="#visi-misi">Visi Misi</a>
-        <a href="#fasilitas">Fasilitas</a>
-        <a href="#pengajar">Data Pengajar</a>
-        <a href="#prestasi">Prestasi</a>
         <div class="dropdown">
           <a href="#tentang">Tentang Kami</a>
           <a href="#visi-misi">Visi Misi</a>
           <a href="#fasilitas">Fasilitas</a>
           <a href="#pengajar">Data Pengajar</a>
+          <a href="#prestasi">Prestasi</a>
         </div>
       </div>
 
@@ -1552,8 +1546,8 @@
       </p>
 
       <div class="hero-actions">
-        <a href="https://linktr.ee/rumahtahfidzquranal_falah" target="_blank" rel="noopener noreferrer">
-          Informasi
+        <a href="{{ route('pendaftaran.create') }}">
+          Daftar Sekarang
         </a>
 
         <a href="#program">Jelajahi Program</a>
@@ -1643,53 +1637,63 @@
     <div class="program-grid">
       @forelse($daftarProgram as $item)
 
-        <a href="{{ route('program.show', $item->id) }}" class="program-card program-link">
-
-          <div class="program-top">
-            <div class="program-icon">📖</div>
-
-            <div class="program-badges">
-              @if(isset($item->status))
-                <span class="program-status {{ $item->status == 'nonaktif' ? 'nonaktif' : '' }}">
-                  {{ $item->status == 'nonaktif' ? 'Nonaktif' : 'Aktif' }}
-                </span>
-              @endif
-
-              @if(!empty($item->durasi))
-                <span class="program-time">
-                  {{ str_replace([' x ', '×', '<>'], ' | ', $item->durasi) }}
-                </span>
-              @endif
+      <a href="{{ route('program.show', $item->id) }}" class="program-card program-link" style="padding: 0; display: flex; flex-direction: column; height: 100%; overflow: hidden;">
+        <div class="program-image-wrapper" style="position: relative; height: 200px; border-bottom: 1px solid var(--border); overflow: hidden; background: #fffaf0; width: 100%;">
+          @if(!empty($item->gambar))
+            <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->nama_program }}" style="width: 100%; height: 100%; object-fit: cover;">
+          @else
+            <div style="width: 100%; height: 100%; background: #ffedd5; color: #7c2d12; font-size: 48px; display: flex; align-items: center; justify-content: center;">
+              📖
             </div>
+          @endif
+          
+          <div class="program-badges" style="position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; pointer-events: none;">
+            @if(isset($item->status))
+              <span class="program-status {{ $item->status == 'nonaktif' ? 'nonaktif' : '' }}">
+                {{ $item->status == 'nonaktif' ? 'Nonaktif' : 'Aktif' }}
+              </span>
+            @endif
+
+            @if(!empty($item->durasi))
+              <span class="program-time">
+                {{ str_replace([' x ', '×', '<>'], ' | ', $item->durasi) }}
+              </span>
+            @endif
           </div>
+        </div>
 
-          <h3>
-            {{ $item->nama_program ?? 'Program Pembelajaran' }}
-          </h3>
-
-          <p>
-            {{ $item->deskripsi ?? 'Deskripsi program belum tersedia.' }}
-          </p>
-
-        </a>
-
-      @empty
-
-        <div class="program-card">
-          <div class="program-top">
-            <div class="program-icon">📖</div>
+        <div class="program-body" style="padding: 24px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <h3 style="font-size: 20px; font-weight: 700; color: var(--primary); margin-bottom: 8px; margin-top: 0; line-height: 1.4;">
+              {{ $item->nama_program ?? 'Program Pembelajaran' }}
+            </h3>
+            <p style="font-size: 14px; line-height: 1.6; color: var(--text-muted); margin-bottom: 16px;">
+              {{ \Illuminate\Support\Str::limit($item->deskripsi ?? 'Deskripsi program belum tersedia.', 120) }}
+            </p>
           </div>
+          <div style="font-size: 13px; font-weight: 600; color: var(--secondary-dark); display: flex; align-items: center; gap: 6px; border-top: 1px solid rgba(234, 217, 190, 0.5); padding-top: 12px; margin-top: auto;">
+            👤 {{ $item->jumlah_santri ?? 0 }} Santri Terdaftar
+          </div>
+        </div>
+      </a>
 
-          <h3>Belum ada program</h3>
+    @empty
 
-          <p>
+      <div class="program-card" style="padding: 0; display: flex; flex-direction: column;">
+        <div class="program-image-wrapper" style="position: relative; height: 200px; border-bottom: 1px solid var(--border); overflow: hidden; background: #fffaf0; width: 100%; display: flex; align-items: center; justify-content: center;">
+          <div style="font-size: 48px; color: #7c2d12;">📖</div>
+        </div>
+        <div class="program-body" style="padding: 24px;">
+          <h3 style="font-size: 20px; font-weight: 700; color: var(--primary); margin-bottom: 8px; margin-top: 0;">Belum ada program</h3>
+          <p style="font-size: 14px; line-height: 1.6; color: var(--text-muted); margin-bottom: 0;">
             Data program pembelajaran akan tampil setelah ditambahkan oleh admin.
           </p>
         </div>
+      </div>
 
-      @endforelse
-    </div>
-  </section>
+    @endforelse
+  </div>
+</section>
 
   {{-- FASILITAS --}}
   <section id="fasilitas">
@@ -2054,7 +2058,7 @@
           <li><a href="#fasilitas">Fasilitas</a></li>
           <li><a href="#pengajar">Data Pengajar</a></li>
           <li>
-            <a href="{{ route('register') }}">
+            <a href="{{ route('pendaftaran.create') }}">
               Pendaftaran / Informasi
             </a>
           </li>
